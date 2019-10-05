@@ -164,8 +164,9 @@ class _CalculatorAppState extends State<CalculatorApp> {
                         onPressed: () {
                           setState(() {
                             initialDisplay = finalDisplay;
+                            caLogic(finalDisplay);
                           });
-                          initialDisplay = finalDisplay;
+                          initialDisplay = caLogic(finalDisplay);
                         },
                       ),
                     ),
@@ -180,7 +181,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
   }
 }
 
-caLogic() {
+caLogic(String x) {
   final builderC = ExpressionBuilder();
 
   builderC.group()
@@ -208,10 +209,8 @@ caLogic() {
     ..left(char('-').trim(), (a, op, b) => a - b);
 
   final parser = builderC.build().end();
-//  String fromButtons =
-//      ""; // add all the strings as soon as user taps on = and pass it
-  //to below function for solution
-  var finalOutput = parser.parse('$finalDisplay');
+  var finalOutput = parser.parse(finalDisplay);
   print(finalOutput);
-  // above example from https://github.com/petitparser/dart-petitparser#writing-a-more-complicated-grammar
+  var result = finalOutput;
+  return result;
 }
