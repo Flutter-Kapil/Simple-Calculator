@@ -162,16 +162,8 @@ class _CalculatorAppState extends State<CalculatorApp> {
                         ),
                         color: Colors.yellow,
                         onPressed: () {
-                          print("this is Initial Display :$initialDisplay");
-                          print("this is final Display :$finalDisplay");
-                          dynamic finalOutput = caLogic(finalDisplay);
-                          print("this is final Output :$finalOutput");
-                          initialDisplay = finalOutput;
-                          setState(() {
-//                            initialDisplay = finalDisplay;
-//                            caLogic(finalDisplay);
-                          });
-//                          initialDisplay = caLogic(finalDisplay);
+                          initialDisplay = caLogic(finalDisplay);
+                          setState(() {});
                         },
                       ),
                     ),
@@ -214,13 +206,5 @@ caLogic(String x) {
     ..left(char('-').trim(), (a, op, b) => a - b);
 
   final parser = builderC.build().end();
-  var finalOutput = parser.parse(x);
-//  print(finalOutput);// just to test if string is being calculated or not
-  dynamic result = finalOutput;
-//  initialDisplay = caLogic(finalDisplay);
-//  print("this is Initial Display :$initialDisplay");
-//  print("this is final Display :$finalDisplay");
-//  print("this is final Output :$finalOutput");
-
-  return result;
+  return parser.parse(x).value;
 }
