@@ -7,9 +7,9 @@ void main() => runApp(
         home: CalculatorApp(),
       ),
     );
-var initialDisplay = "0";
+dynamic initialDisplay = "0";
 var initialOutput = "";
-var finalDisplay = "";
+var finalDisplay = "0";
 Widget _calBtn(String btnName) {
   return Expanded(
     child: Container(
@@ -113,7 +113,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                       onPressed: () {
                         setState(() {
                           initialDisplay = "0";
-                          finalDisplay = "";
+                          finalDisplay = "0";
                         });
                       },
                     ),
@@ -162,11 +162,16 @@ class _CalculatorAppState extends State<CalculatorApp> {
                         ),
                         color: Colors.yellow,
                         onPressed: () {
+                          print("this is Initial Display :$initialDisplay");
+                          print("this is final Display :$finalDisplay");
+                          dynamic finalOutput = caLogic(finalDisplay);
+                          print("this is final Output :$finalOutput");
+                          initialDisplay = finalOutput;
                           setState(() {
-                            initialDisplay = finalDisplay;
-                            caLogic(finalDisplay);
+//                            initialDisplay = finalDisplay;
+//                            caLogic(finalDisplay);
                           });
-                          initialDisplay = caLogic(finalDisplay);
+//                          initialDisplay = caLogic(finalDisplay);
                         },
                       ),
                     ),
@@ -209,8 +214,13 @@ caLogic(String x) {
     ..left(char('-').trim(), (a, op, b) => a - b);
 
   final parser = builderC.build().end();
-  var finalOutput = parser.parse(finalDisplay);
-  print(finalOutput);
-  var result = finalOutput;
+  var finalOutput = parser.parse(x);
+//  print(finalOutput);// just to test if string is being calculated or not
+  dynamic result = finalOutput;
+//  initialDisplay = caLogic(finalDisplay);
+//  print("this is Initial Display :$initialDisplay");
+//  print("this is final Display :$finalDisplay");
+//  print("this is final Output :$finalOutput");
+
   return result;
 }
