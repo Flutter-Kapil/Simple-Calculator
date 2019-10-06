@@ -7,9 +7,6 @@ void main() => runApp(
         home: CalculatorApp(),
       ),
     );
-dynamic initialDisplay = "0";
-var initialOutput = "";
-var finalDisplay = "0";
 
 class CalculatorApp extends StatefulWidget {
   @override
@@ -17,6 +14,9 @@ class CalculatorApp extends StatefulWidget {
 }
 
 class _CalculatorAppState extends State<CalculatorApp> {
+  dynamic initialDisplay = "";
+  var initialOutput = "";
+  var finalDisplay = "";
   Widget _calBtn(String btnName) {
     return Expanded(
       child: Container(
@@ -115,8 +115,8 @@ class _CalculatorAppState extends State<CalculatorApp> {
                       color: Colors.yellow,
                       onPressed: () {
                         setState(() {
-                          initialDisplay = "0";
-                          finalDisplay = "0";
+                          initialDisplay = "";
+                          finalDisplay = "";
                         });
                       },
                     ),
@@ -166,6 +166,12 @@ class _CalculatorAppState extends State<CalculatorApp> {
                         color: Colors.yellow,
                         onPressed: () {
                           initialDisplay = caLogic(finalDisplay);
+                          initialDisplay = "$initialDisplay";
+                          finalDisplay = initialDisplay;
+                          print(
+                              "value of initialDisplay is $initialDisplay and its type is ${initialDisplay.runtimeType}");
+                          print(
+                              "value of finalDisplay is $finalDisplay and its type is ${finalDisplay.runtimeType}");
                           setState(() {});
                         },
                       ),
