@@ -10,26 +10,6 @@ void main() => runApp(
 dynamic initialDisplay = "0";
 var initialOutput = "";
 var finalDisplay = "0";
-Widget _calBtn(String btnName) {
-  return Expanded(
-    child: Container(
-      margin: EdgeInsets.all(4.0),
-      color: Colors.blue.shade400,
-      child: FlatButton(
-        padding: EdgeInsets.all(2.0),
-        splashColor: Colors.blueGrey,
-        child: Text(
-          btnName,
-          style: TextStyle(fontSize: 25),
-        ),
-        color: Colors.yellow,
-        onPressed: () {
-          finalDisplay = finalDisplay + btnName;
-        },
-      ),
-    ),
-  );
-}
 
 class CalculatorApp extends StatefulWidget {
   @override
@@ -37,6 +17,29 @@ class CalculatorApp extends StatefulWidget {
 }
 
 class _CalculatorAppState extends State<CalculatorApp> {
+  Widget _calBtn(String btnName) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.all(4.0),
+        color: Colors.blue.shade400,
+        child: FlatButton(
+          padding: EdgeInsets.all(2.0),
+          splashColor: Colors.blueGrey,
+          child: Text(
+            btnName,
+            style: TextStyle(fontSize: 25),
+          ),
+          color: Colors.yellow,
+          onPressed: () {
+            finalDisplay = finalDisplay + btnName;
+            initialDisplay = finalDisplay;
+            setState(() {});
+          },
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
