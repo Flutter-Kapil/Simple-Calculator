@@ -24,15 +24,15 @@ class _CalculatorAppState extends State<CalculatorApp> {
     return Expanded(
       child: Container(
         margin: EdgeInsets.all(4.0),
-        color: Colors.blue.shade400,
+        color: Colors.black,
         child: FlatButton(
           padding: EdgeInsets.all(2.0),
-          splashColor: Colors.blueGrey,
+          splashColor: Colors.white,
           child: Text(
             btnName,
-            style: TextStyle(fontSize: 25),
+            style: TextStyle(fontSize: 25, color: Colors.white),
           ),
-          color: Colors.yellow,
+          color: Colors.black,
           onPressed: () {
             if (opBtnPress == false) {
               finalDisplay = finalDisplay + btnName;
@@ -50,15 +50,15 @@ class _CalculatorAppState extends State<CalculatorApp> {
     return Expanded(
       child: Container(
         margin: EdgeInsets.all(4.0),
-        color: Colors.blue.shade400,
+        color: Colors.black,
         child: FlatButton(
           padding: EdgeInsets.all(2.0),
-          splashColor: Colors.blueGrey,
+          splashColor: Colors.white,
           child: Text(
             btnName,
-            style: TextStyle(fontSize: 25),
+            style: TextStyle(fontSize: 25, color: Colors.white),
           ),
-          color: Colors.yellow,
+          color: Colors.black,
           onPressed: () {
             opBtnPress = false;
             finalDisplay = finalDisplay + btnName;
@@ -71,42 +71,169 @@ class _CalculatorAppState extends State<CalculatorApp> {
   }
 
   Widget _delBtn() {
-    return FlatButton(
-      padding: EdgeInsets.all(2.0),
-      splashColor: Colors.blueGrey,
-      child: Icon(Icons.backspace),
-      color: Colors.yellow,
-      onPressed: () {
-        print(
-            "initialDisplay:$initialDisplay , finalDisplay:$finalDisplay , opBtnPress:$opBtnPress ");
-        var x = initialDisplay.length;
-        int y = x - 1;
-        String del = initialDisplay.substring(0, y);
-        initialDisplay = del;
-        finalDisplay = initialDisplay;
-        var z = finalDisplay.length - 1;
-        var lastChar = finalDisplay.substring(z);
-        if (lastChar == '+' ||
-            lastChar == '-' ||
-            lastChar == '*' ||
-            lastChar == '/') {
-          opBtnPress = true;
-        } else if (lastChar == '1' ||
-            lastChar == '2' ||
-            lastChar == '3' ||
-            lastChar == '4' ||
-            lastChar == '5' ||
-            lastChar == '6' ||
-            lastChar == '7' ||
-            lastChar == '8' ||
-            lastChar == '9' ||
-            lastChar == '0') {
-          opBtnPress = false;
-        }
-        print(
-            "initialDisplay:$initialDisplay , finalDisplay:$finalDisplay , opBtnPress:$opBtnPress lastChar:$lastChar");
-        setState(() {});
-      },
+    return Container(
+      margin: EdgeInsets.all(4.0),
+      color: Colors.black,
+      child: FlatButton(
+        padding: EdgeInsets.all(2.0),
+        splashColor: Colors.white,
+        child: Icon(
+          Icons.backspace,
+          color: Colors.white,
+        ),
+        color: Colors.black,
+        onPressed: () {
+          print(
+              "initialDisplay:$initialDisplay , finalDisplay:$finalDisplay , opBtnPress:$opBtnPress ");
+          var x = initialDisplay.length;
+          int y = x - 1;
+          String del = initialDisplay.substring(0, y);
+          initialDisplay = del;
+          finalDisplay = initialDisplay;
+          var z = finalDisplay.length - 1;
+          var lastChar = finalDisplay.substring(z);
+          if (lastChar == '+' ||
+              lastChar == '-' ||
+              lastChar == '*' ||
+              lastChar == '/') {
+            opBtnPress = true;
+          } else if (lastChar == '1' ||
+              lastChar == '2' ||
+              lastChar == '3' ||
+              lastChar == '4' ||
+              lastChar == '5' ||
+              lastChar == '6' ||
+              lastChar == '7' ||
+              lastChar == '8' ||
+              lastChar == '9' ||
+              lastChar == '0') {
+            opBtnPress = false;
+          }
+          print(
+              "initialDisplay:$initialDisplay , finalDisplay:$finalDisplay , opBtnPress:$opBtnPress lastChar:$lastChar");
+          setState(() {});
+        },
+      ),
+    );
+  }
+
+  Widget _keypadArea() {
+    return Column(
+      children: <Widget>[
+        Expanded(
+          flex: 1,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              _numBtn('7'),
+              _numBtn('8'),
+              _numBtn('9'),
+              _opBtn('/'),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              _numBtn('4'),
+              _numBtn('5'),
+              _numBtn('6'),
+              _opBtn('*'),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              _numBtn('1'),
+              _numBtn('2'),
+              _numBtn('3'),
+              _opBtn('-'),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Expanded(
+                child: _delBtn(),
+              ),
+              _numBtn('0'),
+              _numBtn('.'),
+              _opBtn('+'),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.all(4.0),
+                  child: FlatButton(
+                    padding: EdgeInsets.all(2.0),
+                    splashColor: Colors.blueGrey,
+                    child: Text(
+                      'Clear',
+                      style: TextStyle(fontSize: 25, color: Colors.white30),
+                    ),
+                    color: Colors.black,
+                    onPressed: () {
+                      setState(() {
+                        initialDisplay = "0";
+                        finalDisplay = "";
+                      });
+                    },
+                  ),
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.all(4.0),
+                  child: FlatButton(
+                    padding: EdgeInsets.all(2.0),
+                    splashColor: Colors.blueGrey,
+                    child: Text(
+                      '=',
+                      style: TextStyle(fontSize: 25, color: Colors.white30),
+                    ),
+                    color: Colors.black,
+                    onPressed: () {
+                      initialDisplay = caLogic(finalDisplay);
+                      initialDisplay = "$initialDisplay";
+                      finalDisplay = initialDisplay;
+                      print(
+                          "value of initialDisplay is $initialDisplay and its type is ${initialDisplay.runtimeType}");
+                      print(
+                          "value of finalDisplay is $finalDisplay and its type is ${finalDisplay.runtimeType}");
+                      setState(() {});
+                    },
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _displayArea() {
+    return Container(
+      padding: EdgeInsets.all(10.0),
+      color: Colors.blue.shade600,
+      child: Text(
+        "$initialDisplay",
+        style: TextStyle(fontSize: 40),
+      ),
+      alignment: Alignment.bottomRight,
     );
   }
 
@@ -123,121 +250,15 @@ class _CalculatorAppState extends State<CalculatorApp> {
           children: <Widget>[
             Expanded(
               flex: 4,
-              child: Container(
-                padding: EdgeInsets.all(10.0),
-                color: Colors.black26,
-                child: Text(
-                  "$initialDisplay",
-                  style: TextStyle(fontSize: 40),
-                ),
-                alignment: Alignment.bottomRight,
-              ),
+              child: _displayArea(),
             ),
             Expanded(
-              flex: 1,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  _numBtn('7'),
-                  _numBtn('8'),
-                  _numBtn('9'),
-                  _opBtn('/'),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  _numBtn('4'),
-                  _numBtn('5'),
-                  _numBtn('6'),
-                  _opBtn('*'),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  _numBtn('1'),
-                  _numBtn('2'),
-                  _numBtn('3'),
-                  _opBtn('-'),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Expanded(
-                    child: _delBtn(),
-                  ),
-                  _numBtn('0'),
-                  _numBtn('.'),
-                  _opBtn('+'),
-                ],
-              ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.all(4.0),
-                      color: Colors.blue.shade400,
-                      child: FlatButton(
-                        padding: EdgeInsets.all(2.0),
-                        splashColor: Colors.blueGrey,
-                        child: Text(
-                          'Clear',
-                          style: TextStyle(fontSize: 25),
-                        ),
-                        color: Colors.yellow,
-                        onPressed: () {
-                          setState(() {
-                            initialDisplay = "0";
-                            finalDisplay = "";
-                          });
-                        },
-                      ),
-                    ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      margin: EdgeInsets.all(4.0),
-                      color: Colors.blue.shade400,
-                      child: FlatButton(
-                        padding: EdgeInsets.all(2.0),
-                        splashColor: Colors.blueGrey,
-                        child: Text(
-                          '=',
-                          style: TextStyle(fontSize: 25),
-                        ),
-                        color: Colors.yellow,
-                        onPressed: () {
-                          initialDisplay = caLogic(finalDisplay);
-                          initialDisplay = "$initialDisplay";
-                          finalDisplay = initialDisplay;
-                          print(
-                              "value of initialDisplay is $initialDisplay and its type is ${initialDisplay.runtimeType}");
-                          print(
-                              "value of finalDisplay is $finalDisplay and its type is ${finalDisplay.runtimeType}");
-                          setState(() {});
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+              flex: 5,
+              child: _keypadArea(),
+            )
           ],
         ),
+        backgroundColor: Colors.black,
       ),
     );
   }
