@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:petitparser/petitparser.dart';
+import 'dart:core';
 
 void main() => runApp(
       MaterialApp(
@@ -17,7 +18,32 @@ class _CalculatorAppState extends State<CalculatorApp> {
   dynamic initialDisplay = "";
   var initialOutput = "";
   var finalDisplay = "";
-  Widget _calBtn(String btnName) {
+
+
+  Widget _opBtn(String btnName) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.all(4.0),
+        color: Colors.blue.shade400,
+        child: FlatButton(
+          padding: EdgeInsets.all(2.0),
+          splashColor: Colors.blueGrey,
+          child: Text(
+            btnName,
+            style: TextStyle(fontSize: 25),
+          ),
+          color: Colors.yellow,
+          onPressed: () {
+            finalDisplay = finalDisplay + btnName;
+            initialDisplay = finalDisplay;
+            setState(() {});
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _numBtn(String btnName) {
     return Expanded(
       child: Container(
         margin: EdgeInsets.all(4.0),
@@ -68,10 +94,10 @@ class _CalculatorAppState extends State<CalculatorApp> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  _calBtn('7'),
-                  _calBtn('8'),
-                  _calBtn('9'),
-                  _calBtn('/'),
+                  _numBtn('7'),
+                  _numBtn('8'),
+                  _numBtn('9'),
+                  _opBtn('/'),
                 ],
               ),
             ),
@@ -80,10 +106,10 @@ class _CalculatorAppState extends State<CalculatorApp> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  _calBtn('4'),
-                  _calBtn('5'),
-                  _calBtn('6'),
-                  _calBtn('*'),
+                  _numBtn('4'),
+                  _numBtn('5'),
+                  _numBtn('6'),
+                  _opBtn('*'),
                 ],
               ),
             ),
@@ -92,10 +118,10 @@ class _CalculatorAppState extends State<CalculatorApp> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  _calBtn('1'),
-                  _calBtn('2'),
-                  _calBtn('3'),
-                  _calBtn('-'),
+                  _numBtn('1'),
+                  _numBtn('2'),
+                  _numBtn('3'),
+                  _opBtn('-'),
                 ],
               ),
             ),
@@ -108,22 +134,25 @@ class _CalculatorAppState extends State<CalculatorApp> {
                     child: FlatButton(
                       padding: EdgeInsets.all(2.0),
                       splashColor: Colors.blueGrey,
-                      child: Text(
-                        'Clear',
-                        style: TextStyle(fontSize: 25),
-                      ),
+                      child: Icon(Icons.backspace),
                       color: Colors.yellow,
                       onPressed: () {
-                        setState(() {
-                          initialDisplay = "";
-                          finalDisplay = "";
-                        });
+                        print("Debug on pressing delete arrow"
+                            " initiaDisplay = $initialDisplay finaldisplay = $finalDisplay");
+                        var x = initialDisplay.length;
+                        int y = x - 1;
+                        String del = initialDisplay.substring(0, y);
+                        initialDisplay = del;
+                        finalDisplay = initialDisplay;
+                        print("Debug on pressing delete arrow"
+                            "initiaDisplay = $initialDisplay finaldisplay = $finalDisplay");
+                        setState(() {});
                       },
                     ),
                   ),
-                  _calBtn('0'),
-                  _calBtn('.'),
-                  _calBtn('+'),
+                  _numBtn('0'),
+                  _numBtn('.'),
+                  _opBtn('+'),
                 ],
               ),
             ),
