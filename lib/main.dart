@@ -18,6 +18,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
   dynamic initialDisplay = "";
   var initialOutput = "";
   var finalDisplay = "";
+  bool opBtnPress = false;
 
   Widget _opBtn(String btnName) {
     return Expanded(
@@ -33,8 +34,11 @@ class _CalculatorAppState extends State<CalculatorApp> {
           ),
           color: Colors.yellow,
           onPressed: () {
-            finalDisplay = finalDisplay + btnName;
-            initialDisplay = finalDisplay;
+            if (opBtnPress == false) {
+              finalDisplay = finalDisplay + btnName;
+              initialDisplay = finalDisplay;
+              opBtnPress = true;
+            }
             setState(() {});
           },
         ),
@@ -56,12 +60,41 @@ class _CalculatorAppState extends State<CalculatorApp> {
           ),
           color: Colors.yellow,
           onPressed: () {
+            opBtnPress = false;
             finalDisplay = finalDisplay + btnName;
             initialDisplay = finalDisplay;
             setState(() {});
           },
         ),
       ),
+    );
+  }
+
+  Widget _delBtn() {
+    return FlatButton(
+      padding: EdgeInsets.all(2.0),
+      splashColor: Colors.blueGrey,
+      child: Icon(Icons.backspace),
+      color: Colors.yellow,
+      onPressed: () {
+        print("Debug on pressing delete arrow"
+            " initiaDisplay = $initialDisplay finaldisplay = $finalDisplay");
+        var x = initialDisplay.length;
+        int y = x - 1;
+        String del = initialDisplay.substring(0, y);
+        var lastChar = initialDisplay.substring(y);
+        if (lastChar == '+' ||
+            lastChar == '-' ||
+            lastChar == '*' ||
+            lastChar == '/') {
+          opBtnPress = false;
+        }
+        initialDisplay = del;
+        finalDisplay = initialDisplay;
+        print("Debug on pressing delete arrow"
+            "initiaDisplay = $initialDisplay finaldisplay = $finalDisplay");
+        setState(() {});
+      },
     );
   }
 
@@ -130,24 +163,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   Expanded(
-                    child: FlatButton(
-                      padding: EdgeInsets.all(2.0),
-                      splashColor: Colors.blueGrey,
-                      child: Icon(Icons.backspace),
-                      color: Colors.yellow,
-                      onPressed: () {
-                        print("Debug on pressing delete arrow"
-                            " initiaDisplay = $initialDisplay finaldisplay = $finalDisplay");
-                        var x = initialDisplay.length;
-                        int y = x - 1;
-                        String del = initialDisplay.substring(0, y);
-                        initialDisplay = del;
-                        finalDisplay = initialDisplay;
-                        print("Debug on pressing delete arrow"
-                            "initiaDisplay = $initialDisplay finaldisplay = $finalDisplay");
-                        setState(() {});
-                      },
-                    ),
+                    child: _delBtn(),
                   ),
                   _numBtn('0'),
                   _numBtn('.'),
