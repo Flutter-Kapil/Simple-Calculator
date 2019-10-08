@@ -19,7 +19,6 @@ class _CalculatorAppState extends State<CalculatorApp> {
   var initialOutput = "";
   var finalDisplay = "";
 
-
   Widget _opBtn(String btnName) {
     return Expanded(
       child: Container(
