@@ -77,22 +77,34 @@ class _CalculatorAppState extends State<CalculatorApp> {
       child: Icon(Icons.backspace),
       color: Colors.yellow,
       onPressed: () {
-        print("Debug on pressing delete arrow"
-            " initiaDisplay = $initialDisplay finaldisplay = $finalDisplay");
+        print(
+            "initialDisplay:$initialDisplay , finalDisplay:$finalDisplay , opBtnPress:$opBtnPress ");
         var x = initialDisplay.length;
         int y = x - 1;
         String del = initialDisplay.substring(0, y);
-        var lastChar = initialDisplay.substring(y);
+        initialDisplay = del;
+        finalDisplay = initialDisplay;
+        var z = finalDisplay.length - 1;
+        var lastChar = finalDisplay.substring(z);
         if (lastChar == '+' ||
             lastChar == '-' ||
             lastChar == '*' ||
             lastChar == '/') {
+          opBtnPress = true;
+        } else if (lastChar == '1' ||
+            lastChar == '2' ||
+            lastChar == '3' ||
+            lastChar == '4' ||
+            lastChar == '5' ||
+            lastChar == '6' ||
+            lastChar == '7' ||
+            lastChar == '8' ||
+            lastChar == '9' ||
+            lastChar == '0') {
           opBtnPress = false;
         }
-        initialDisplay = del;
-        finalDisplay = initialDisplay;
-        print("Debug on pressing delete arrow"
-            "initiaDisplay = $initialDisplay finaldisplay = $finalDisplay");
+        print(
+            "initialDisplay:$initialDisplay , finalDisplay:$finalDisplay , opBtnPress:$opBtnPress lastChar:$lastChar");
         setState(() {});
       },
     );
