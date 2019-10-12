@@ -4,7 +4,7 @@ import 'package:petitparser/petitparser.dart';
 import 'dart:core';
 
 void main() => runApp(
-      MaterialApp(
+      MaterialApp(//lets add themes and append commit message
         home: CalculatorApp(),
       ),
     );
@@ -24,15 +24,15 @@ class _CalculatorAppState extends State<CalculatorApp> {
     return Expanded(
       child: Container(
         margin: EdgeInsets.all(4.0),
-        color: Colors.black,
+//        color: Colors.black,
         child: FlatButton(
           padding: EdgeInsets.all(2.0),
-          splashColor: Colors.white,
+//          splashColor: Colors.white,
           child: Text(
             btnName,
-            style: TextStyle(fontSize: 25, color: Colors.white),
+            style: TextStyle(fontSize: 25), //removed color: Colors.white
           ),
-          color: Colors.black,
+//          color: Colors.black,
           onPressed: () {
             if (opBtnPress == false) {
               finalDisplay = finalDisplay + btnName;
@@ -50,15 +50,15 @@ class _CalculatorAppState extends State<CalculatorApp> {
     return Expanded(
       child: Container(
         margin: EdgeInsets.all(4.0),
-        color: Colors.black,
+//        color: Colors.black,
         child: FlatButton(
           padding: EdgeInsets.all(2.0),
-          splashColor: Colors.white,
+//          splashColor: Colors.white,
           child: Text(
             btnName,
-            style: TextStyle(fontSize: 25, color: Colors.white),
+            style: TextStyle(fontSize: 25), //color: Colors.white
           ),
-          color: Colors.black,
+//          color: Colors.black,
           onPressed: () {
             opBtnPress = false;
             finalDisplay = finalDisplay + btnName;
@@ -73,15 +73,15 @@ class _CalculatorAppState extends State<CalculatorApp> {
   Widget _delBtn() {
     return Container(
       margin: EdgeInsets.all(4.0),
-      color: Colors.black,
+//      color: Colors.black,
       child: FlatButton(
         padding: EdgeInsets.all(2.0),
-        splashColor: Colors.white,
+//        splashColor: Colors.white,
         child: Icon(
           Icons.backspace,
-          color: Colors.white,
+//          color: Colors.white,
         ),
-        color: Colors.black,
+//        color: Colors.black,
         onPressed: () {
           print(
               "initialDisplay:$initialDisplay , finalDisplay:$finalDisplay , opBtnPress:$opBtnPress ");
@@ -179,12 +179,12 @@ class _CalculatorAppState extends State<CalculatorApp> {
                   margin: EdgeInsets.all(4.0),
                   child: FlatButton(
                     padding: EdgeInsets.all(2.0),
-                    splashColor: Colors.blueGrey,
+//                    splashColor: Colors.blueGrey,
                     child: Text(
                       'Clear',
-                      style: TextStyle(fontSize: 25, color: Colors.white30),
+                      style: TextStyle(fontSize: 25), //, color: Colors.white30
                     ),
-                    color: Colors.black,
+//                    color: Colors.black,
                     onPressed: () {
                       setState(() {
                         initialDisplay = "0";
@@ -199,12 +199,12 @@ class _CalculatorAppState extends State<CalculatorApp> {
                   margin: EdgeInsets.all(4.0),
                   child: FlatButton(
                     padding: EdgeInsets.all(2.0),
-                    splashColor: Colors.blueGrey,
+//                    splashColor: Colors.blueGrey,
                     child: Text(
                       '=',
-                      style: TextStyle(fontSize: 25, color: Colors.white30),
+                      style: TextStyle(fontSize: 25), //, color: Colors.white30
                     ),
-                    color: Colors.black,
+//                    color: Colors.black,
                     onPressed: () {
                       initialDisplay = caLogic(finalDisplay);
                       initialDisplay = "$initialDisplay";
@@ -228,7 +228,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
   Widget _displayArea() {
     return Container(
       padding: EdgeInsets.all(10.0),
-      color: Colors.blue.shade600,
+//      color: Colors.blue.shade600,
       child: Text(
         "$initialDisplay",
         style: TextStyle(fontSize: 40),
@@ -258,7 +258,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
             )
           ],
         ),
-        backgroundColor: Colors.black,
+//        backgroundColor: Colors.black,
       ),
     );
   }
