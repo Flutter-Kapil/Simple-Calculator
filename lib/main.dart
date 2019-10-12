@@ -193,6 +193,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                       setState(() {
                         initialDisplay = "0";
                         finalDisplay = "";
+                        history = "";
                       });
                     },
                   ),
@@ -210,9 +211,13 @@ class _CalculatorAppState extends State<CalculatorApp> {
                     ),
 //                    color: Colors.black,
                     onPressed: () {
+                      history = history + finalDisplay;
+                      print("history: $history"); // debug print
                       initialDisplay = caLogic(finalDisplay);
                       initialDisplay = "$initialDisplay";
                       finalDisplay = initialDisplay;
+                      history = history + " = " + finalDisplay + ",\t";
+                      print("history: $history"); // debug print
                       print(
                           "value of initialDisplay is $initialDisplay and its type is ${initialDisplay.runtimeType}");
                       print(
@@ -244,6 +249,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
   Brightness _theme = Brightness.light;
   static Color _defaultAppbarColor = Colors.white;
   Color appbarColor = _defaultAppbarColor;
+  String history = "";
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
