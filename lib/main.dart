@@ -233,7 +233,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                       initialDisplay = caLogic(finalDisplay);
                       initialDisplay = "$initialDisplay";
                       finalDisplay = initialDisplay;
-                      history = history + " = " + finalDisplay + ",\t";
+                      history = history + " = " + finalDisplay + ",\n";
                       print("history: $history"); // debug print
                       print(
                           "value of initialDisplay is $initialDisplay and its type is ${initialDisplay.runtimeType}");
