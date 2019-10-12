@@ -4,9 +4,7 @@ import 'package:petitparser/petitparser.dart';
 import 'dart:core';
 
 void main() => runApp(
-      MaterialApp(//lets add themes and append commit message
-        home: CalculatorApp(),
-      ),
+      CalculatorApp(),
     );
 
 class CalculatorApp extends StatefulWidget {
@@ -237,11 +235,36 @@ class _CalculatorAppState extends State<CalculatorApp> {
     );
   }
 
+  Brightness _theme = Brightness.light;
+  static Color _defaultAppbarColor = Colors.white;
+  Color appbarColor = _defaultAppbarColor;
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return MaterialApp(
+      theme: ThemeData(
+        primaryColor: appbarColor,
+        brightness: _theme,
+        textTheme: Typography().black,
+      ),
+      home: Scaffold(
         appBar: AppBar(
+          actions: <Widget>[
+            IconButton(
+              onPressed: () {
+                //on pressing button switch between light/dark theme
+                if (_theme == Brightness.light) {
+                  appbarColor = null;
+                  _theme = Brightness.dark;
+                } else {
+                  appbarColor = _defaultAppbarColor;
+                  _theme = Brightness.light;
+                }
+
+                setState(() {});
+              },
+              icon: Icon(Icons.color_lens),
+            ),
+          ],
           title: Text('Simple Calculator'),
           centerTitle: true,
         ),
