@@ -85,7 +85,13 @@ class _CalculatorAppState extends State<CalculatorApp> {
               "initialDisplay:$initialDisplay , finalDisplay:$finalDisplay , opBtnPress:$opBtnPress ");
           var x = initialDisplay.length;
           int y = x - 1;
-          String del = initialDisplay.substring(0, y);
+          String del;
+          if (y >= 1) {
+            del = initialDisplay.substring(0, y);
+          }
+          if (y == 0) {
+            del = '0';
+          }
           initialDisplay = del;
           finalDisplay = initialDisplay;
           var z = finalDisplay.length - 1;
