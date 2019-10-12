@@ -17,10 +17,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
-  flutter_launcher_icons: ^0.7.3
-flutter_icon:
-  image_path: 'icon/calIcon.png'
-  android: true
+
 
   petitparser: ^2.4.0
   flutter:
@@ -33,6 +30,12 @@ flutter_icon:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+  flutter_launcher_icons: ^0.7.3
+
+flutter_icon:
+  image_path: 'icon/calIcon.png'
+  android: true
 
 
 # For information on the generic Dart part of this file, see the
