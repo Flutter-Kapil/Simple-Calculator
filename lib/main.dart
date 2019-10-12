@@ -190,12 +190,29 @@ class _CalculatorAppState extends State<CalculatorApp> {
                     ),
 //                    color: Colors.black,
                     onPressed: () {
+                      historyVisible = false;
                       setState(() {
                         initialDisplay = "0";
                         finalDisplay = "";
                         history = "";
                       });
                     },
+                  ),
+                ),
+              ),
+              Expanded(
+                child: FlatButton(
+                  onPressed: () {
+                    if (!historyVisible) {
+                      historyVisible = true;
+                    } else {
+                      historyVisible = false;
+                    }
+                    setState(() {});
+                  },
+                  child: Text(
+                    "History",
+                    style: TextStyle(fontSize: 25),
                   ),
                 ),
               ),
@@ -250,6 +267,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
   static Color _defaultAppbarColor = Colors.white;
   Color appbarColor = _defaultAppbarColor;
   String history = "";
+  bool historyVisible = false;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -285,7 +303,27 @@ class _CalculatorAppState extends State<CalculatorApp> {
           children: <Widget>[
             Expanded(
               flex: 4,
-              child: _displayArea(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  Visibility(
+                    visible: historyVisible,
+                    child: Text(
+                      history,
+                      textAlign: TextAlign.end,
+                      style: TextStyle(fontSize: 30),
+                    ),
+                  ),
+                  _displayArea(),
+                  SizedBox(
+                    height: 0.5,
+                    child: Container(
+                      color: Colors.black,
+                    ),
+                  ),
+                ],
+              ),
             ),
             Expanded(
               flex: 5,
