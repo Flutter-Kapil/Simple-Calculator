@@ -317,7 +317,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                       style: TextStyle(fontSize: 30),
                     ),
                   ),
-                  Text(livedresult),
+                  Text(livedresult,style: TextStyle(fontSize: 20),),
                   _displayArea(),
                   SizedBox(
                     height: 0.5,
