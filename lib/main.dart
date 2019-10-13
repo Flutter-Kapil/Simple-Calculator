@@ -27,6 +27,19 @@ class _CalculatorAppState extends State<CalculatorApp> {
             )
           ],
         ),
+        body:Column(
+          children: <Widget>[
+            Expanded(
+              // display area
+              flex: 4,
+            ),
+            Expanded(
+              // buttons area
+              flex: 5,
+              child: ,
+            )
+          ],
+        ),
       )
     );
   }
