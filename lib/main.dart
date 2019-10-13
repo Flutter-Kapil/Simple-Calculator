@@ -15,271 +15,346 @@ class CalculatorApp extends StatefulWidget {
 String history = "";
 String liveResult = "";
 String launchDisplay = "";
-bool opBtnAct = true;
+bool opBtnAct = false;
 bool decBtnAct = true;
+Brightness _theme = Brightness.light;
+Color _defaultAppbarColor = Colors.white;
+Color appbarColor = _defaultAppbarColor;
 
 class _CalculatorAppState extends State<CalculatorApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Scaffold(
-      appBar: AppBar(
-        title: Text("Simple Calculator"),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.invert_colors),
-            onPressed: () {},
-          )
-        ],
-      ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            // display area
-            flex: 4,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                // history text
-                Text(history),
-                // live result text
-                Text(liveResult),
-                // launch display
-                Text(
-                  launchDisplay,
-                  style: TextStyle(fontSize: 30),
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                SizedBox(
-                  height: 2,
-                  child: Container(
-                    color: Colors.black26,
+      theme: ThemeData(
+          primaryColor: appbarColor,
+          brightness: _theme,
+          textTheme: Typography().black,
+          buttonColor: Colors.white70),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text("Simple Calculator"),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.invert_colors),
+              onPressed: () {
+                //on pressing button switch between light/dark theme
+                if (_theme == Brightness.light) {
+                  appbarColor = null;
+                  _theme = Brightness.dark;
+                } else {
+                  appbarColor = _defaultAppbarColor;
+                  _theme = Brightness.light;
+                }
+                setState(() {});
+              },
+            )
+          ],
+        ),
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              // display area
+              flex: 4,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  // history text
+                  Text(history),
+                  // live result text
+                  Text(liveResult),
+                  // launch display
+                  Text(
+                    launchDisplay,
+                    style: TextStyle(fontSize: 30),
                   ),
-                )
-              ],
+                  SizedBox(
+                    height: 5,
+                  ),
+                  SizedBox(
+                    height: 2,
+                    child: Container(
+                      color: Colors.black26,
+                    ),
+                  )
+                ],
+              ),
             ),
-          ),
-          Expanded(
-            // buttons area
-            flex: 5,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    NormalButton(
-                      btnName: '7',
-                      onPressed: () {
-                        launchDisplay = launchDisplay + '7';
-                        if (isLastNum(launchDisplay)) {
-                          liveResult = caLogic(launchDisplay).toString();
-                        }
-                        setState(() {});
-                      },
-                    ),
-                    NormalButton(
-                      btnName: '8',
-                      onPressed: () {
-                        launchDisplay = launchDisplay + '8';
-                        if (isLastNum(launchDisplay)) {
-                          liveResult = caLogic(launchDisplay).toString();
-                        }
-                        setState(() {});
-                      },
-                    ),
-                    NormalButton(
-                      btnName: '9',
-                      onPressed: () {
-                        launchDisplay = launchDisplay + '9';
-                        if (isLastNum(launchDisplay)) {
-                          liveResult = caLogic(launchDisplay).toString();
-                        }
-                        setState(() {});
-                      },
-                    ),
-                    NormalButton(
-                      btnName: '/',
-                      onPressed: () {
-                        launchDisplay = launchDisplay + '/';
-                        setState(() {});
-                      },
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    NormalButton(
-                      btnName: '4',
-                      onPressed: () {
-                        launchDisplay = launchDisplay + '4';
-                        if (isLastNum(launchDisplay)) {
-                          liveResult = caLogic(launchDisplay).toString();
-                        }
-                        setState(() {});
-                      },
-                    ),
-                    NormalButton(
-                      btnName: '5',
-                      onPressed: () {
-                        launchDisplay = launchDisplay + '5';
-                        if (isLastNum(launchDisplay)) {
-                          liveResult = caLogic(launchDisplay).toString();
-                        }
-                        setState(() {});
-                      },
-                    ),
-                    NormalButton(
-                      btnName: '6',
-                      onPressed: () {
-                        launchDisplay = launchDisplay + '6';
-                        if (isLastNum(launchDisplay)) {
-                          liveResult = caLogic(launchDisplay).toString();
-                        }
-                        setState(() {});
-                      },
-                    ),
-                    NormalButton(
-                      btnName: '*',
-                      onPressed: () {
-                        launchDisplay = launchDisplay + '*';
-                        setState(() {});
-                      },
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    NormalButton(
-                      btnName: '1',
-                      onPressed: () {
-                        launchDisplay = launchDisplay + '1';
-                        if (isLastNum(launchDisplay)) {
-                          liveResult = caLogic(launchDisplay).toString();
-                        }
-                        setState(() {});
-                      },
-                    ),
-                    NormalButton(
-                      btnName: '2',
-                      onPressed: () {
-                        launchDisplay = launchDisplay + '2';
-                        if (isLastNum(launchDisplay)) {
-                          liveResult = caLogic(launchDisplay).toString();
-                        }
-                        setState(() {});
-                      },
-                    ),
-                    NormalButton(
-                      btnName: '3',
-                      onPressed: () {
-                        launchDisplay = launchDisplay + '3';
-                        if (isLastNum(launchDisplay)) {
-                          liveResult = caLogic(launchDisplay).toString();
-                        }
-                        setState(() {});
-                      },
-                    ),
-                    NormalButton(
-                      btnName: '+',
-                      onPressed: () {
-                        launchDisplay = launchDisplay + '+';
-                        setState(() {});
-                      },
-                    ),
-                  ],
-                ),
-                // zero row
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    NormalButton(
-                      btnName: '(',
-                      onPressed: () {
-                        launchDisplay = launchDisplay + '(';
-                        setState(() {});
-                      },
-                    ),
-                    NormalButton(
-                      btnName: '0',
-                      onPressed: () {
-                        launchDisplay = launchDisplay + '0';
-                        setState(() {});
-                      },
-                    ),
-                    NormalButton(
-                      btnName: ')',
-                      onPressed: () {
-                        launchDisplay = launchDisplay + ')';
-                        setState(() {});
-                      },
-                    ),
-                    NormalButton(
-                      btnName: '-',
-                      onPressed: () {
-                        launchDisplay = launchDisplay + '-';
-                        setState(() {});
-                      },
-                    ),
-                  ],
-                ),
-                // clear and equal to
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    NormalButton(
-                      btnName: '<=',
-                      onPressed: () {
-                        if (launchDisplay.length != 0) {
-                          launchDisplay = backspace(launchDisplay);
-                        }
-                        print(
-                            "length of ld is ${launchDisplay.length} & its $launchDisplay");
-                        if (launchDisplay.length == 0) {
-                          launchDisplay = "";
-                          liveResult = "";
-                        } else if (isLastOp(launchDisplay)) {
-                          liveResult = caLogic(launchDisplay.substring(
-                                  0, launchDisplay.length - 1))
-                              .toString();
-                        } else if (isLastNum(launchDisplay) &&
-                            launchDisplay.length > 1) {
-                          liveResult = caLogic(launchDisplay).toString();
-                        } else if (launchDisplay.length == 1) {
-                          liveResult = launchDisplay;
-                        }
-                        print(launchDisplay);
-                        setState(() {});
-                      },
-                    ),
-                    NormalButton(
-                      btnName: 'Clear',
-                      onPressed: () {
-                        clearBtn();
-                        setState(() {});
-                      },
-                    ),
-                    NormalButton(
-                      btnName: "=",
-                      onPressed: () {
-                        launchDisplay = caLogic(launchDisplay).toString();
-                        setState(() {});
-                      },
-                    ),
-                  ],
-                )
-              ],
-            ),
-          )
-        ],
+            Expanded(
+              // buttons area
+              flex: 5,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      NormalButton(
+                        btnName: '7',
+                        onPressed: () {
+                          launchDisplay = launchDisplay + '7';
+                          opBtnAct = true;
+                          if (isLastNum(launchDisplay)) {
+                            liveResult = caLogic(launchDisplay).toString();
+                          }
+                          setState(() {});
+                        },
+                      ),
+                      NormalButton(
+                        btnName: '8',
+                        onPressed: () {
+                          launchDisplay = launchDisplay + '8';
+                          opBtnAct = true;
+                          if (isLastNum(launchDisplay)) {
+                            liveResult = caLogic(launchDisplay).toString();
+                          }
+                          setState(() {});
+                        },
+                      ),
+                      NormalButton(
+                        btnName: '9',
+                        onPressed: () {
+                          launchDisplay = launchDisplay + '9';
+                          opBtnAct = true;
+                          if (isLastNum(launchDisplay)) {
+                            liveResult = caLogic(launchDisplay).toString();
+                          }
+                          setState(() {});
+                        },
+                      ),
+                      NormalButton(
+                        btnName: '/',
+                        onPressed: () {
+                          if (opBtnAct == true) {
+                            launchDisplay = launchDisplay + '/';
+                            opBtnAct = false;
+                            decBtnAct = true;
+                          }
+                          setState(() {});
+                        },
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      NormalButton(
+                        btnName: '4',
+                        onPressed: () {
+                          launchDisplay = launchDisplay + '4';
+                          opBtnAct = true;
+                          if (isLastNum(launchDisplay)) {
+                            liveResult = caLogic(launchDisplay).toString();
+                          }
+                          setState(() {});
+                        },
+                      ),
+                      NormalButton(
+                        btnName: '5',
+                        onPressed: () {
+                          launchDisplay = launchDisplay + '5';
+                          opBtnAct = true;
+                          if (isLastNum(launchDisplay)) {
+                            liveResult = caLogic(launchDisplay).toString();
+                          }
+                          setState(() {});
+                        },
+                      ),
+                      NormalButton(
+                        btnName: '6',
+                        onPressed: () {
+                          launchDisplay = launchDisplay + '6';
+                          opBtnAct = true;
+                          if (isLastNum(launchDisplay)) {
+                            liveResult = caLogic(launchDisplay).toString();
+                          }
+                          setState(() {});
+                        },
+                      ),
+                      NormalButton(
+                        btnName: '*',
+                        onPressed: () {
+                          if (opBtnAct == true) {
+                            launchDisplay = launchDisplay + '*';
+                            opBtnAct = false;
+                            decBtnAct = true;
+                          }
+                          setState(() {});
+                        },
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      NormalButton(
+                        btnName: '1',
+                        onPressed: () {
+                          launchDisplay = launchDisplay + '1';
+                          opBtnAct = true;
+                          if (isLastNum(launchDisplay)) {
+                            liveResult = caLogic(launchDisplay).toString();
+                          }
+                          setState(() {});
+                        },
+                      ),
+                      NormalButton(
+                        btnName: '2',
+                        onPressed: () {
+                          opBtnAct = true;
+                          launchDisplay = launchDisplay + '2';
+                          if (isLastNum(launchDisplay)) {
+                            liveResult = caLogic(launchDisplay).toString();
+                          }
+                          setState(() {});
+                        },
+                      ),
+                      NormalButton(
+                        btnName: '3',
+                        onPressed: () {
+                          launchDisplay = launchDisplay + '3';
+                          opBtnAct = true;
+                          if (isLastNum(launchDisplay)) {
+                            liveResult = caLogic(launchDisplay).toString();
+                          }
+                          setState(() {});
+                        },
+                      ),
+                      NormalButton(
+                        btnName: '+',
+                        onPressed: () {
+                          if (opBtnAct == true) {
+                            launchDisplay = launchDisplay + '+';
+                            opBtnAct = false;
+                            decBtnAct = true;
+                          }
+                          setState(() {});
+                        },
+                      ),
+                    ],
+                  ),
+                  // zero row
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      NormalButton(
+                        btnName: '(',
+                        onPressed: () {
+                          launchDisplay = launchDisplay + '(';
+                          setState(() {});
+                        },
+                      ),
+                      NormalButton(
+                        btnName: '0',
+                        onPressed: () {
+                          launchDisplay = launchDisplay + '0';
+                          opBtnAct = true;
+                          setState(() {});
+                        },
+                      ),
+                      NormalButton(
+                        btnName: ')',
+                        onPressed: () {
+                          launchDisplay = launchDisplay + ')';
+                          setState(() {});
+                        },
+                      ),
+                      NormalButton(
+                        btnName: '-',
+                        onPressed: () {
+                          if (opBtnAct == true) {
+                            launchDisplay = launchDisplay + '-';
+                            opBtnAct = false;
+                            decBtnAct = true;
+                          }
+                          setState(() {});
+                        },
+                      ),
+                    ],
+                  ),
+                  // clear and equal to
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      FlatButton(
+                          child: Icon(Icons.backspace),
+                          onPressed: () {
+                            if (launchDisplay.length != 0) {
+                              launchDisplay = backspace(launchDisplay);
+                            }
+                            print(
+                                "length of ld is ${launchDisplay.length} & its $launchDisplay");
+                            if (launchDisplay.length == 0) {
+                              launchDisplay = "";
+                              liveResult = "";
+                            } else if (isLastOp(launchDisplay)) {
+                              liveResult = caLogic(launchDisplay.substring(
+                                      0, launchDisplay.length - 1))
+                                  .toString();
+                            } else if (isLastDecimal(launchDisplay)) {
+                              print("we are here 1");
+                              if (isLastOp(launchDisplay.substring(
+                                  0, launchDisplay.length - 1))) {
+                                liveResult = caLogic(launchDisplay.substring(
+                                        0, launchDisplay.length - 2))
+                                    .toString();
+                              } else {
+                                liveResult = caLogic(launchDisplay.substring(
+                                        0, launchDisplay.length - 1))
+                                    .toString();
+                              }
+                            } else if (isLastNum(launchDisplay) &&
+                                launchDisplay.length > 1) {
+                              liveResult = caLogic(launchDisplay).toString();
+                            } else if (launchDisplay.length == 1) {
+                              liveResult = launchDisplay;
+                            }
+                            print(launchDisplay);
+                            setState(() {});
+                          }),
+                      NormalButton(
+                        btnName: '.',
+                        onPressed: () {
+                          launchDisplay = launchDisplay + '.';
+                          if (isLastNum(launchDisplay)) {
+                            liveResult = caLogic(launchDisplay).toString();
+                          }
+                          setState(() {});
+                        },
+                      ),
+                      NormalButton(
+                        btnName: 'Clear',
+                        onPressed: () {
+                          clearBtn();
+                          setState(() {});
+                        },
+                      ),
+                      NormalButton(
+                        btnName: "=",
+                        onPressed: () {
+                          opBtnAct = true;
+                          if (isLastOp(launchDisplay) &&
+                              launchDisplay.length > 1) {
+                            launchDisplay = caLogic(launchDisplay.substring(
+                                    0, launchDisplay.length - 1))
+                                .toString();
+                          }
+                          if (launchDisplay.length > 1) {
+                            launchDisplay = caLogic(launchDisplay).toString();
+                          }
+                          setState(() {});
+                        },
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            )
+          ],
+        ),
       ),
-    ));
+    );
   }
 }
 
@@ -293,9 +368,11 @@ class NormalButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(2.8),
-      child: RaisedButton(
-        elevation: 5,
-        child: Text(btnName),
+      child: FlatButton(
+        child: Text(
+          btnName,
+          style: TextStyle(fontSize: 21),
+        ),
         onPressed: onPressed,
       ),
     );
@@ -381,6 +458,6 @@ bool isLastNum(String x) {
 void clearBtn() {
   launchDisplay = "";
   liveResult = "";
-  opBtnAct = true;
+  opBtnAct = false;
   decBtnAct = true;
 }
