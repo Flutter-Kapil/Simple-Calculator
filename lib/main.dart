@@ -17,6 +17,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
   var initialOutput = "";
   var finalDisplay = "";
   bool opBtnPress = false;
+  bool decimalbtn = true;
 
   Widget _opBtn(String btnName) {
     return Expanded(
@@ -36,6 +37,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
               finalDisplay = finalDisplay + btnName;
               initialDisplay = finalDisplay;
               opBtnPress = true;
+              decimalbtn =true;
             }
             setState(() {});
           },
@@ -61,7 +63,35 @@ class _CalculatorAppState extends State<CalculatorApp> {
             opBtnPress = false;
             finalDisplay = finalDisplay + btnName;
             initialDisplay = finalDisplay;
-            livedresult = caLogic(initialDisplay).toString();
+            liveresult = caLogic(initialDisplay).toString();
+            print("num key press, initaldisplay: $initialDisplay ${initialDisplay.runtimeType}, finaldisplay: $finalDisplay ${finalDisplay.runtimeType}, ");
+            setState(() {});
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _decBtn(String btnName) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.all(4.0),
+//        color: Colors.black,
+        child: FlatButton(
+          padding: EdgeInsets.all(2.0),
+//          splashColor: Colors.white,
+          child: Text(
+            btnName,
+            style: TextStyle(fontSize: 25), //color: Colors.white
+          ),
+//          color: Colors.black,
+          onPressed: () {
+            if(decimalbtn){
+              opBtnPress = false;
+              finalDisplay = finalDisplay + btnName;
+              initialDisplay = finalDisplay;
+              decimalbtn=false;
+            }
             print("num key press, initaldisplay: $initialDisplay ${initialDisplay.runtimeType}, finaldisplay: $finalDisplay ${finalDisplay.runtimeType}, ");
             setState(() {});
           },
@@ -171,7 +201,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                 child: _delBtn(),
               ),
               _numBtn('0'),
-              _numBtn('.'),
+              _decBtn('.'),
               _opBtn('+'),
             ],
           ),
@@ -192,7 +222,8 @@ class _CalculatorAppState extends State<CalculatorApp> {
                     ),
 //                    color: Colors.black,
                     onPressed: () {
-                      livedresult="";
+                      decimalbtn=true;
+                      liveresult="";
                       historyVisible = false;
                       setState(() {
                         initialDisplay = "0";
@@ -231,6 +262,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                     ),
 //                    color: Colors.black,
                     onPressed: () {
+                      decimalbtn =true;
                       history = history + finalDisplay;
                       print("history: $history"); // debug print
                       print("before equal key, initaldisplay: $initialDisplay ${initialDisplay.runtimeType}, finaldisplay: $finalDisplay ${finalDisplay.runtimeType}, ");
@@ -268,7 +300,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
   static Color _defaultAppbarColor = Colors.white;
   Color appbarColor = _defaultAppbarColor;
   String history = "";
-  String livedresult = "";
+  String liveresult = "";
   bool historyVisible = false;
   @override
   Widget build(BuildContext context) {
@@ -317,7 +349,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                       style: TextStyle(fontSize: 30),
                     ),
                   ),
-                  Text(livedresult,style: TextStyle(fontSize: 20),),
+                  Text(liveresult,style: TextStyle(fontSize: 20),),
                   _displayArea(),
                   SizedBox(
                     height: 0.5,
