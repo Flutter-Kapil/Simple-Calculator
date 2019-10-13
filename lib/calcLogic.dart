@@ -28,8 +28,6 @@ caLogic() {
     ..left(char('-').trim(), (a, op, b) => a - b);
 
   final parser = builder.build().end();
-  String fromButtons =
-      ""; // add all the strings as soon as user taps on = and pass it
   //to below function for solution
   var finalOutput = parser.parse('24*(2)');
   print(finalOutput);

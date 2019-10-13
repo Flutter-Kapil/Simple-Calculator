@@ -61,6 +61,8 @@ class _CalculatorAppState extends State<CalculatorApp> {
             opBtnPress = false;
             finalDisplay = finalDisplay + btnName;
             initialDisplay = finalDisplay;
+            livedresult = caLogic(initialDisplay).toString();
+            print("num key press, initaldisplay: $initialDisplay ${initialDisplay.runtimeType}, finaldisplay: $finalDisplay ${finalDisplay.runtimeType}, ");
             setState(() {});
           },
         ),
@@ -190,6 +192,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                     ),
 //                    color: Colors.black,
                     onPressed: () {
+                      livedresult="";
                       historyVisible = false;
                       setState(() {
                         initialDisplay = "0";
@@ -230,15 +233,13 @@ class _CalculatorAppState extends State<CalculatorApp> {
                     onPressed: () {
                       history = history + finalDisplay;
                       print("history: $history"); // debug print
+                      print("before equal key, initaldisplay: $initialDisplay ${initialDisplay.runtimeType}, finaldisplay: $finalDisplay ${finalDisplay.runtimeType}, ");
                       initialDisplay = caLogic(finalDisplay);
                       initialDisplay = "$initialDisplay";
                       finalDisplay = initialDisplay;
                       history = history + " = " + finalDisplay + ",\n";
                       print("history: $history"); // debug print
-                      print(
-                          "value of initialDisplay is $initialDisplay and its type is ${initialDisplay.runtimeType}");
-                      print(
-                          "value of finalDisplay is $finalDisplay and its type is ${finalDisplay.runtimeType}");
+                      print("after equal key, initaldisplay: $initialDisplay ${initialDisplay.runtimeType}, finaldisplay: $finalDisplay ${finalDisplay.runtimeType}, ");
                       setState(() {});
                     },
                   ),
@@ -267,6 +268,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
   static Color _defaultAppbarColor = Colors.white;
   Color appbarColor = _defaultAppbarColor;
   String history = "";
+  String livedresult = "";
   bool historyVisible = false;
   @override
   Widget build(BuildContext context) {
@@ -315,6 +317,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                       style: TextStyle(fontSize: 30),
                     ),
                   ),
+                  Text(livedresult),
                   _displayArea(),
                   SizedBox(
                     height: 0.5,
