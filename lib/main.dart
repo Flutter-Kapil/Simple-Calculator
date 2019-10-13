@@ -87,9 +87,12 @@ class _CalculatorAppState extends State<CalculatorApp> {
 //          color: Colors.black,
           onPressed: () {
             if(decimalbtn){
+              print("b4 dec btn,\n initaldisplay: $initialDisplay ${initialDisplay.runtimeType}, finaldisplay: $finalDisplay ${finalDisplay.runtimeType},\n liveresult:$liveresult ");
               opBtnPress = false;
               finalDisplay = finalDisplay + btnName;
               initialDisplay = finalDisplay;
+              liveresult = caLogic(initialDisplay).toString();
+              print("after dec btn,\n initaldisplay: $initialDisplay ${initialDisplay.runtimeType}, finaldisplay: $finalDisplay ${finalDisplay.runtimeType},\n liveresult:$liveresult ");
               decimalbtn=false;
             }
             print("num key press, initaldisplay: $initialDisplay ${initialDisplay.runtimeType}, finaldisplay: $finalDisplay ${finalDisplay.runtimeType}, ");
@@ -114,7 +117,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
 //        color: Colors.black,
         onPressed: () {
           print(
-              "initialDisplay:$initialDisplay , finalDisplay:$finalDisplay , opBtnPress:$opBtnPress ");
+              "b4 delbtn, initialDisplay:$initialDisplay , finalDisplay:$finalDisplay , opBtnPress:$opBtnPress ");
           var x = initialDisplay.length;
           int y = x - 1;
           String del;
@@ -145,8 +148,9 @@ class _CalculatorAppState extends State<CalculatorApp> {
               lastChar == '0') {
             opBtnPress = false;
           }
+          liveresult = caLogic(initialDisplay).toString();
           print(
-              "initialDisplay:$initialDisplay , finalDisplay:$finalDisplay , opBtnPress:$opBtnPress lastChar:$lastChar");
+              "del btn , initialDisplay:$initialDisplay , finalDisplay:$finalDisplay , opBtnPress:$opBtnPress lastChar:$lastChar");
           setState(() {});
         },
       ),
