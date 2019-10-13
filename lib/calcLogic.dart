@@ -1,9 +1,10 @@
 import 'package:petitparser/petitparser.dart';
+import 'main.dart';
 
-caLogic() {
-  final builder = ExpressionBuilder();
+caLogic(String x) {
+  final builderC = ExpressionBuilder();
 
-  builder.group()
+  builderC.group()
     ..primitive(digit()
         .plus()
         .seq(char('.').seq(digit().plus()).optional())
@@ -13,23 +14,44 @@ caLogic() {
     ..wrapper(char('(').trim(), char(')').trim(), (l, a, r) => a);
 
   // negation is a prefix operator
-  builder.group()..prefix(char('-').trim(), (op, a) => -a);
+  builderC.group()..prefix(char('-').trim(), (op, a) => -a);
 
 // power is right-associative
   var math;
-  builder.group()..right(char('^').trim(), (a, op, b) => math.pow(a, b));
+  builderC.group()..right(char('^').trim(), (a, op, b) => math.pow(a, b));
 
 // multiplication and addition are left-associative
-  builder.group()
+  builderC.group()
     ..left(char('*').trim(), (a, op, b) => a * b)
     ..left(char('/').trim(), (a, op, b) => a / b);
-  builder.group()
+  builderC.group()
     ..left(char('+').trim(), (a, op, b) => a + b)
     ..left(char('-').trim(), (a, op, b) => a - b);
 
-  final parser = builder.build().end();
-  //to below function for solution
-  var finalOutput = parser.parse('24*(2)');
-  print(finalOutput);
-  // above example from https://github.com/petitparser/dart-petitparser#writing-a-more-complicated-grammar
+  final parser = builderC.build().end();
+  return parser.parse(x).value;
 }
+
+String _backspace(String x){
+  if(x.length==1){
+    x='';
+  }else if(x.length!=1){
+    x = x.substring(0,x.length-1);
+  }
+  return x;
+}
+
+bool _isLastDecimal(String x){
+  if(x[x.length-1]=='.')
+    return true;
+  else
+    return false;
+}
+
+bool _isLastOp(String x){
+  if(x[x.length-1]=='*' || x[x.length-1]=='+' || x[x.length-1]=='-' || x[x.length-1]=='/')
+    return true;
+  else
+    return false;
+}
+
