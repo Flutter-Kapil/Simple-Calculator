@@ -40,3 +40,36 @@ String _backspace(String x) {
   }
   return x;
 }
+
+bool _isLastDecimal(String x) {
+  if (x[x.length - 1] == '.')
+    return true;
+  else
+    return false;
+}
+
+bool _isLastOp(String x) {
+  if (x[x.length - 1] == '*' ||
+      x[x.length - 1] == '+' ||
+      x[x.length - 1] == '-' ||
+      x[x.length - 1] == '/')
+    return true;
+  else
+    return false;
+}
+
+bool _isLastNum(String x) {
+  if (x[x.length - 1] == '0' ||
+      x[x.length - 1] == '1' ||
+      x[x.length - 1] == '2' ||
+      x[x.length - 1] == '3' ||
+      x[x.length - 1] == '4' ||
+      x[x.length - 1] == '5' ||
+      x[x.length - 1] == '6' ||
+      x[x.length - 1] == '7' ||
+      x[x.length - 1] == '8' ||
+      x[x.length - 1] == '9')
+    return true;
+  else
+    return false;
+}
