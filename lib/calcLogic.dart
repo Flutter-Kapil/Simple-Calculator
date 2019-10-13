@@ -32,3 +32,11 @@ caLogic(String x) {
   return parser.parse(x).value;
 }
 
+String _backspace(String x) {
+  if (x.length == 1) {
+    x = '';
+  } else if (x.length != 1) {
+    x = x.substring(0, x.length - 1);
+  }
+  return x;
+}
