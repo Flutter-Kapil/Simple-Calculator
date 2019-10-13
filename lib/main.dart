@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'dart:core';
 
@@ -10,6 +12,9 @@ class CalculatorApp extends StatefulWidget {
   @override
   _CalculatorAppState createState() => _CalculatorAppState();
 }
+String history="";
+String liveResult="";
+String launchDisplay="0";
 
 class _CalculatorAppState extends State<CalculatorApp> {
   @override
@@ -31,12 +36,23 @@ class _CalculatorAppState extends State<CalculatorApp> {
           children: <Widget>[
             Expanded(
               // display area
-              flex: 4,
+              flex: 4, child: Column(
+              children: <Widget>[
+                // history text
+                Text(history),
+                // live result text
+                Text(liveResult),
+                // launch display
+                Text(launchDisplay),
+              ],
+            ),
             ),
             Expanded(
               // buttons area
               flex: 5,
-              child: ,
+              child: Column(
+                children: <Widget>[],
+              ),
             )
           ],
         ),
