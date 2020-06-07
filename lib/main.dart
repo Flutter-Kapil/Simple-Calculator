@@ -17,6 +17,7 @@ String liveResult = "";
 String launchDisplay = "";
 bool opBtnAct = false;
 bool decBtnAct = true;
+bool bracketClosed = true;
 Brightness _theme = Brightness.light;
 Color _defaultAppbarColor = Colors.white;
 Color appbarColor = _defaultAppbarColor;
@@ -95,7 +96,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                         onPressed: () {
                           launchDisplay = launchDisplay + '7';
                           opBtnAct = true;
-                          if (isLastNum(launchDisplay)) {
+                          if (isLastNum(launchDisplay) && bracketClosed) {
                             liveResult = caLogic(launchDisplay).toString();
                           }
                           setState(() {});
@@ -106,7 +107,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                         onPressed: () {
                           launchDisplay = launchDisplay + '8';
                           opBtnAct = true;
-                          if (isLastNum(launchDisplay)) {
+                          if (isLastNum(launchDisplay) && bracketClosed) {
                             liveResult = caLogic(launchDisplay).toString();
                           }
                           setState(() {});
@@ -117,7 +118,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                         onPressed: () {
                           launchDisplay = launchDisplay + '9';
                           opBtnAct = true;
-                          if (isLastNum(launchDisplay)) {
+                          if (isLastNum(launchDisplay) && bracketClosed) {
                             liveResult = caLogic(launchDisplay).toString();
                           }
                           setState(() {});
@@ -144,7 +145,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                         onPressed: () {
                           launchDisplay = launchDisplay + '4';
                           opBtnAct = true;
-                          if (isLastNum(launchDisplay)) {
+                          if (isLastNum(launchDisplay) && bracketClosed) {
                             liveResult = caLogic(launchDisplay).toString();
                           }
                           setState(() {});
@@ -155,7 +156,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                         onPressed: () {
                           launchDisplay = launchDisplay + '5';
                           opBtnAct = true;
-                          if (isLastNum(launchDisplay)) {
+                          if (isLastNum(launchDisplay) && bracketClosed) {
                             liveResult = caLogic(launchDisplay).toString();
                           }
                           setState(() {});
@@ -166,7 +167,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                         onPressed: () {
                           launchDisplay = launchDisplay + '6';
                           opBtnAct = true;
-                          if (isLastNum(launchDisplay)) {
+                          if (isLastNum(launchDisplay) && bracketClosed) {
                             liveResult = caLogic(launchDisplay).toString();
                           }
                           setState(() {});
@@ -193,7 +194,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                         onPressed: () {
                           launchDisplay = launchDisplay + '1';
                           opBtnAct = true;
-                          if (isLastNum(launchDisplay)) {
+                          if (isLastNum(launchDisplay) && bracketClosed) {
                             liveResult = caLogic(launchDisplay).toString();
                           }
                           setState(() {});
@@ -204,7 +205,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                         onPressed: () {
                           opBtnAct = true;
                           launchDisplay = launchDisplay + '2';
-                          if (isLastNum(launchDisplay)) {
+                          if (isLastNum(launchDisplay) && bracketClosed) {
                             liveResult = caLogic(launchDisplay).toString();
                           }
                           setState(() {});
@@ -215,7 +216,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                         onPressed: () {
                           launchDisplay = launchDisplay + '3';
                           opBtnAct = true;
-                          if (isLastNum(launchDisplay)) {
+                          if (isLastNum(launchDisplay) && bracketClosed) {
                             liveResult = caLogic(launchDisplay).toString();
                           }
                           setState(() {});
@@ -241,6 +242,7 @@ class _CalculatorAppState extends State<CalculatorApp> {
                       NormalButton(
                         btnName: '(',
                         onPressed: () {
+                          bracketClosed = false;
                           launchDisplay = launchDisplay + '(';
                           setState(() {});
                         },
@@ -256,7 +258,9 @@ class _CalculatorAppState extends State<CalculatorApp> {
                       NormalButton(
                         btnName: ')',
                         onPressed: () {
+                          bracketClosed = true;
                           launchDisplay = launchDisplay + ')';
+                          liveResult = caLogic(launchDisplay).toString();
                           setState(() {});
                         },
                       ),
@@ -279,40 +283,9 @@ class _CalculatorAppState extends State<CalculatorApp> {
                     children: <Widget>[
                       FlatButton(
                           child: Icon(Icons.backspace),
-                          onPressed: () {
-                            if (launchDisplay.length != 0) {
-                              launchDisplay = backspace(launchDisplay);
-                            }
-                            print(
-                                "length of ld is ${launchDisplay.length} & its $launchDisplay");
-                            if (launchDisplay.length == 0) {
-                              launchDisplay = "";
-                              liveResult = "";
-                            } else if (isLastOp(launchDisplay)) {
-                              liveResult = caLogic(launchDisplay.substring(
-                                      0, launchDisplay.length - 1))
-                                  .toString();
-                            } else if (isLastDecimal(launchDisplay)) {
-                              print("we are here 1");
-                              if (isLastOp(launchDisplay.substring(
-                                  0, launchDisplay.length - 1))) {
-                                liveResult = caLogic(launchDisplay.substring(
-                                        0, launchDisplay.length - 2))
-                                    .toString();
-                              } else {
-                                liveResult = caLogic(launchDisplay.substring(
-                                        0, launchDisplay.length - 1))
-                                    .toString();
-                              }
-                            } else if (isLastNum(launchDisplay) &&
-                                launchDisplay.length > 1) {
-                              liveResult = caLogic(launchDisplay).toString();
-                            } else if (launchDisplay.length == 1) {
-                              liveResult = launchDisplay;
-                            }
-                            print(launchDisplay);
-                            setState(() {});
-                          }),
+                          // delete function
+                          onPressed: delkey(),
+                          ),
                       NormalButton(
                         btnName: '.',
                         onPressed: () {
@@ -460,4 +433,38 @@ void clearBtn() {
   liveResult = "";
   opBtnAct = false;
   decBtnAct = true;
+}
+
+delkey() {
+  if (launchDisplay.length > 1 && launchDisplay.endsWith(')')) {
+    bracketClosed = false;
+  } else if (launchDisplay.length > 1 && launchDisplay.endsWith('(')) {
+    bracketClosed = true;
+  }
+  if (launchDisplay.length != 0 && bracketClosed) {
+    launchDisplay = backspace(launchDisplay);
+  }
+  print("length of ld is ${launchDisplay.length} & its $launchDisplay");
+  if (launchDisplay.length == 0) {
+    launchDisplay = "";
+    liveResult = "";
+  } else if (isLastOp(launchDisplay)) {
+    liveResult = caLogic(launchDisplay.substring(0, launchDisplay.length - 1))
+        .toString();
+  } else if (isLastDecimal(launchDisplay)) {
+    print("we are here 1");
+    if (isLastOp(launchDisplay.substring(0, launchDisplay.length - 1))) {
+      liveResult = caLogic(launchDisplay.substring(0, launchDisplay.length - 2))
+          .toString();
+    } else {
+      liveResult = caLogic(launchDisplay.substring(0, launchDisplay.length - 1))
+          .toString();
+    }
+  } else if (isLastNum(launchDisplay) && launchDisplay.length > 1) {
+    liveResult = caLogic(launchDisplay).toString();
+  } else if (launchDisplay.length == 1) {
+    liveResult = launchDisplay;
+  }
+  print(launchDisplay);
+  SetState(() {});
 }
